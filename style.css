@@ -1,0 +1,122 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+body {
+  background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.705),
+      rgba(0, 0, 0, 0.616)
+    ),
+    url(./w2u3uadbdp141.webp);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  background-attachment: fixed;
+}
+label,
+input,
+button {
+  display: block;
+}
+
+#container {
+  margin: 100px;
+  height: auto;
+  width: 700px;
+  padding: 15px 15px;
+  border-radius: 20px;
+  background-color: rgba(75, 11, 158, 0.664);
+}
+body {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+span {
+  color: rgb(41, 247, 0);
+  font-weight: 600;
+}
+h2 span {
+  color: aqua;
+}
+.box span {
+  color: rgb(177, 16, 10);
+  /* font-weight: 600; */
+}
+.box p {
+  color: rgba(75, 11, 158, 0.808);
+}
+label {
+  font-size: 25px;
+  margin: 10px 0;
+  color: rgb(41, 247, 0);
+}
+input {
+  width: 100%;
+  margin: 10px 0;
+  height: 35px;
+  font-size: 15px;
+  color: rgb(224, 13, 6);
+}
+button {
+  margin: 10px auto;
+  padding: 8px;
+  font-size: 15px;
+  color: rgb(177, 16, 10);
+  background-color: rgb(41, 247, 0);
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+button:hover {
+  background-color: rgb(0, 247, 255);
+}
+h1 {
+  color: rgb(41, 247, 0);
+  text-align: center;
+}
+h2 {
+  margin: 10px 0;
+  color: rgb(41, 247, 0);
+}
+.result {
+  width: 100%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.box {
+  padding: 10px 0px 10px 10px;
+  width: 45%;
+  border-radius: 10px;
+  /* background-color: rgba(11, 116, 158, 0.664); */
+  background-color: rgba(41, 247, 0, 0.925);
+  box-shadow: 3px 2px 5px rgba(168, 238, 250, 0.726);
+}
+p {
+  font-size: 30px;
+  color: aqua;
+}
+.box p {
+  margin: 20px 0;
+  font-size: 20px;
+}
+@media (max-width: 800px) {
+  .result {
+    flex-direction: column;
+    /* justify-content: space-between; */
+  }
+  .box {
+    margin: 10px 0;
+    width: 100%;
+  }
+  #container {
+    width: 90%;
+    margin: 10px 5px;
+  }
+}
