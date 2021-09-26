@@ -99,6 +99,6 @@ var displayData= async (name)=>{
             result.appendChild(box);
         }
     }catch(error){
-        console.error(error)
+        console.log(error)
     }
 }
