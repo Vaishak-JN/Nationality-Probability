@@ -1,4 +1,3 @@
-// let result=document.querySelector(".result");
 // container
 let container=document.createElement("div");
 container.setAttribute("id","container")
@@ -44,12 +43,12 @@ let heading=document.createElement("h2");
 
 container.appendChild(heading)
 
-// result 
+// result div - to display the result
 let result=document.createElement("div")
 result.setAttribute("class","result")
 container.append(result)
 result.innerHTML=""
-// var form=document.querySelector("form")
+
 
 form.addEventListener("submit",(event)=>{
     event.preventDefault()
@@ -59,11 +58,12 @@ form.addEventListener("submit",(event)=>{
     console.log(name);
     let nums=[0,1,2,3,4,5,6,7,8,9]
     console.log(name.length)
+    // call function
     displayData(name)
     event.target.reset();
 
 })
-
+// function
 var displayData= async (name)=>{
     let fetchdata=await fetch(`https://api.nationalize.io/?name=${name}`)
     let data=await fetchdata.json();
@@ -72,7 +72,7 @@ var displayData= async (name)=>{
         console.log(data.country)
         result.innerHTML=""
         heading.innerHTML=""
-        heading.innerHTML=`Results for <span>"${name}"</span>`
+        heading.innerHTML=`Results for : <span>${name}</span>`
         if(data.country.length>0){
             
             for(let i=0;i<2;i++){
@@ -100,5 +100,7 @@ var displayData= async (name)=>{
         }
     }catch(error){
         console.log(error)
+        let msg=document.createElement("p");
+        msg.innerText="Sorry something went wrong";
     }
 }
