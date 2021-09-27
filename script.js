@@ -40,8 +40,23 @@ btn.innerText="Check Probability"
 form.append(btn)
 
 let heading=document.createElement("h2");
-
 container.appendChild(heading)
+
+// for filterlabel
+let filterlabel=document.createElement("label");
+filterlabel.setAttribute("class","filterlabel");
+filterlabel.innerHTML=`Filter to nearest probability: <span>${0}%</span>`;
+filterlabel.setAttribute("style","display:none");
+// for filter range
+let filterbar=document.createElement("input");
+filterbar.setAttribute("class","filterbar");
+filterbar.setAttribute("type","range");
+filterbar.setAttribute("min","0");
+filterbar.setAttribute("max","100");
+filterbar.setAttribute("value","0");
+filterbar.setAttribute("style","display:none");
+container.appendChild(filterlabel)
+container.appendChild(filterbar)
 
 // result div - to display the result
 let result=document.createElement("div")
@@ -56,7 +71,6 @@ form.addEventListener("submit",(event)=>{
     // or
     // let name=document.getElementById("name").value
     console.log(name);
-    let nums=[0,1,2,3,4,5,6,7,8,9]
     console.log(name.length)
     // call function
     displayData(name)
@@ -70,11 +84,15 @@ var displayData= async (name)=>{
     try{
         console.log(data)
         console.log(data.country)
-        result.innerHTML=""
-        heading.innerHTML=""
         heading.innerHTML=`Results for : <span>${name}</span>`
+        filterlabel.setAttribute("style","display:block");
+        filterbar.setAttribute("style","display:block");
+        // to display data
         if(data.country.length>0){
-            
+            result.innerHTML=""
+            filterbar.value=0;
+            filterlabel.innerHTML=`Slide to filter to nearest probability: <span>${0}%</span>`;
+            // to siplay top two results
             for(let i=0;i<2;i++){
                 
                 let box=document.createElement("div");
@@ -88,9 +106,12 @@ var displayData= async (name)=>{
                 box.append(id)
                 box.append(probability)
                 result.append(box);
-                document
             }
+            
         }else if(data.country.length==0){
+            result.innerHTML=""
+            filterbar.style.display="none"
+            filterlabel.style.display="none"
             let box=document.createElement("div");
             box.setAttribute("class","error")
             let msg=document.createElement("p");
@@ -98,9 +119,78 @@ var displayData= async (name)=>{
             box.append(msg);
             result.appendChild(box);
         }
+        // for filtering
+        filterbar.onchange=()=>{
+            console.log("change in filter")
+            console.log(filterbar.value)
+            console.log(data)
+            let filtervalue= filterbar.value;
+            console.log(filtervalue)
+            filterlabel.innerHTML=`Slide to filter to nearest probability: <span>${filtervalue}%</span>`;
+            let current=1000;
+            let nearest;
+            if(filtervalue>0){
+                data.country.forEach(ele => {
+                    let diff=Math.abs(+ele.probability*100-filtervalue)
+                    if(diff<current){
+                        current=diff;
+                        nearest=ele
+                    }
+                });
+                console.log(nearest)
+                console.log(current)
+                result.innerHTML=""
+                let box=document.createElement("div");
+                box.setAttribute("class","box")
+                let id=document.createElement("p");
+                id.setAttribute("class","id")
+                id.innerHTML=`Country ID: <span>${nearest.country_id}</span>`
+                let probability=document.createElement("p");
+                probability.setAttribute("class","prob")
+                probability.innerHTML=`Probability: <span>${nearest.probability*100}%</span>`
+                box.append(id)
+                box.append(probability)
+                result.append(box);
+            }else if (filtervalue==0){
+                result.innerHTML=""
+                filterbar.value=0;
+                filterlabel.innerHTML=`Slide to filter to nearest probability: <span>${0}%</span>`;
+
+                for(let i=0;i<2;i++){
+                    
+                    let box=document.createElement("div");
+                    box.setAttribute("class","box")
+                    let id=document.createElement("p");
+                    id.setAttribute("class","id")
+                    id.innerHTML=`Country ID: <span>${data.country[i].country_id}</span>`
+                    let probability=document.createElement("p");
+                    probability.setAttribute("class","prob")
+                    probability.innerHTML=`Probability: <span>${data.country[i].probability*100}%</span>`
+                    box.append(id)
+                    box.append(probability)
+                    result.append(box);
+                }
+            }
+        }
     }catch(error){
         console.log(error)
         let msg=document.createElement("p");
         msg.innerText="Sorry something went wrong";
     }
 }
+
+// not working
+// if(document.querySelector(".filterbar").value>0){
+//     console.log("hi")
+// }
+// filterbar.addEventListener("change",()=>{console.log(filterbar.value)})
+
+// async function filter(name){
+//     let fetchdata=await fetch(`https://api.nationalize.io/?name=${name}`)
+//     let data=await fetchdata.json();
+//     console.log("change in filter")
+//     console.log(filterbar.value)
+//     console.log(data)
+//     let filtervalue= filterbar.value;
+//     console.log(filtervalue)
+// }
