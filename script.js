@@ -45,14 +45,15 @@ container.appendChild(heading)
 // for filterlabel
 let filterlabel=document.createElement("label");
 filterlabel.setAttribute("class","filterlabel");
-filterlabel.innerHTML=`Filter to nearest probability: <span>${0}%</span>`;
+filterlabel.innerHTML=`Filter to nearest probability: <span>${0}</span>`;
 filterlabel.setAttribute("style","display:none");
 // for filter range
 let filterbar=document.createElement("input");
 filterbar.setAttribute("class","filterbar");
 filterbar.setAttribute("type","range");
 filterbar.setAttribute("min","0");
-filterbar.setAttribute("max","100");
+filterbar.setAttribute("max","1");
+filterbar.setAttribute("step","0.01");
 filterbar.setAttribute("value","0");
 filterbar.setAttribute("style","display:none");
 container.appendChild(filterlabel)
@@ -91,7 +92,7 @@ var displayData= async (name)=>{
         if(data.country.length>0){
             result.innerHTML=""
             filterbar.value=0;
-            filterlabel.innerHTML=`Slide to filter to nearest probability: <span>${0}%</span>`;
+            filterlabel.innerHTML=`Slide to filter to nearest probability: <span>${0}</span>`;
             // to siplay top two results
             for(let i=0;i<2;i++){
                 
@@ -102,7 +103,7 @@ var displayData= async (name)=>{
                 id.innerHTML=`Country ID: <span>${data.country[i].country_id}</span>`
                 let probability=document.createElement("p");
                 probability.setAttribute("class","prob")
-                probability.innerHTML=`Probability: <span>${data.country[i].probability*100}%</span>`
+                probability.innerHTML=`Probability: <span>${data.country[i].probability}</span>`
                 box.append(id)
                 box.append(probability)
                 result.append(box);
@@ -126,12 +127,12 @@ var displayData= async (name)=>{
             console.log(data)
             let filtervalue= filterbar.value;
             console.log(filtervalue)
-            filterlabel.innerHTML=`Slide to filter to nearest probability: <span>${filtervalue}%</span>`;
-            let current=1000;
+            filterlabel.innerHTML=`Slide to filter to nearest probability: <span>${filtervalue}</span>`;
+            let current=1;
             let nearest;
             if(filtervalue>0){
                 data.country.forEach(ele => {
-                    let diff=Math.abs(+ele.probability*100-filtervalue)
+                    let diff=Math.abs(+ele.probability-filtervalue)
                     if(diff<current){
                         current=diff;
                         nearest=ele
@@ -147,14 +148,14 @@ var displayData= async (name)=>{
                 id.innerHTML=`Country ID: <span>${nearest.country_id}</span>`
                 let probability=document.createElement("p");
                 probability.setAttribute("class","prob")
-                probability.innerHTML=`Probability: <span>${nearest.probability*100}%</span>`
+                probability.innerHTML=`Probability: <span>${nearest.probability}</span>`
                 box.append(id)
                 box.append(probability)
                 result.append(box);
             }else if (filtervalue==0){
                 result.innerHTML=""
                 filterbar.value=0;
-                filterlabel.innerHTML=`Slide to filter to nearest probability: <span>${0}%</span>`;
+                filterlabel.innerHTML=`Slide to filter to nearest probability: <span>${0}</span>`;
 
                 for(let i=0;i<2;i++){
                     
@@ -165,7 +166,7 @@ var displayData= async (name)=>{
                     id.innerHTML=`Country ID: <span>${data.country[i].country_id}</span>`
                     let probability=document.createElement("p");
                     probability.setAttribute("class","prob")
-                    probability.innerHTML=`Probability: <span>${data.country[i].probability*100}%</span>`
+                    probability.innerHTML=`Probability: <span>${data.country[i].probability}</span>`
                     box.append(id)
                     box.append(probability)
                     result.append(box);
