@@ -85,7 +85,7 @@ var displayData= async (name)=>{
     try{
         console.log(data)
         console.log(data.country)
-        heading.innerHTML=`Results for : <span>${name}</span>`
+        heading.innerHTML=`Top results for : <span>${name}</span>`
         filterlabel.setAttribute("style","display:block");
         filterbar.setAttribute("style","display:block");
         // to display data
