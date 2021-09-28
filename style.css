@@ -69,6 +69,7 @@ input[type="text"] {
   border: none;
   border-radius: 4px;
   padding-left: 5px;
+  accent-color: aqua;
 }
 input[type="range"] {
   color: aqua;
@@ -76,6 +77,7 @@ input[type="range"] {
   outline: none;
   width: 100%;
   margin: 15px 0;
+  accent-color: aqua;
 }
 button {
   margin: 10px auto;
